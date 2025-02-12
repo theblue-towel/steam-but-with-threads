@@ -1,5 +1,6 @@
 from submitter import Submitter
 import threading
+import time
 
 class Looper:
 
@@ -8,7 +9,8 @@ class Looper:
 
 
     def loop(self, links, titles, dates, platforms, prices_before, prices_after, discounts):
-
+        print('Submitting..')
+        start = time.time()
         def SubmitOne(link, title, date, platform_condensed, price_before, price_after, discount):
 
             submitter = Submitter()
@@ -25,3 +27,6 @@ class Looper:
 
         for thread in self.threads:
             thread.join()
+
+        end = time.time()
+        print('successfully submitted in', (end - start) * 10**3, 'ms')
